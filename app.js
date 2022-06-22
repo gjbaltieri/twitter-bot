@@ -8,7 +8,7 @@ const express = require('express')
 const app = express()
 
 app.listen(process.env.PORT || 8000);
-app.get('/', (req, res)=> {
+app.get('/', (req, res) => {
     res.send('rodando')
 })
 
@@ -27,20 +27,22 @@ async function getURL() {
     let url = data.data[0].url;
     https.get(url, (res) => {
         const path = `${__dirname}/images/img.jpeg`;
-        console.log(path);
+        console.log(path)
         const filePath = fs.createWriteStream(path);
         res.pipe(filePath);
         filePath.on('finish', () => {
             filePath.close();
             console.log('Download Completed');
+            postTweet(path)
         })
     })
- setTimeout( async function postTweet () {
-     const mediaId = await client.v1.uploadMedia(`${__dirname}/images/img.jpeg`);
-    const newTweet = await client.v2.tweet({"text": '', "media": {"media_ids": [mediaId]}});
-    console.log(newTweet)
-    }, 2000)
+}
 
-// setInterval(getURL, 10000)
+async function postTweet(PathFile) {
+    const mediaId = await client.v1.uploadMedia(PathFile);
+    const newTweet = await client.v2.tweet({ "text": '', "media": { "media_ids": [mediaId] } });
+    console.log(newTweet)
+}
+// setInterval(getURL, 300000)
 getURL()
 
