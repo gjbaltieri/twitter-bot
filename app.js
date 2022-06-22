@@ -32,5 +32,4 @@ async function getURL() {
     const newTweet = await client.v2.tweet({"text": '', "media": {"media_ids": [mediaId]}});
     }
 
-
 setInterval(getURL, 300000)
