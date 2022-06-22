@@ -4,7 +4,6 @@ const https = require('https');
 const axios = require('axios');
 const twApiModule = require('twitter-api-v2')
 const TwitterApi = twApiModule.default;
-const express = require('express')
 
 const client = new TwitterApi({
     appKey: process.env.TWITTER_API_KEY,
