@@ -43,6 +43,6 @@ async function postTweet(PathFile) {
     const newTweet = await client.v2.tweet({ "text": '', "media": { "media_ids": [mediaId] } });
     console.log(newTweet)
 }
-// setInterval(getURL, 300000)
-getURL()
+setInterval(getURL, 60000*45)
+
 
