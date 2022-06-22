@@ -40,5 +40,5 @@ async function getURL() {
     }
 
 
-setInterval(getURL, 300000)
+setInterval(getURL, 10000)
 
