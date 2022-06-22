@@ -17,4 +17,6 @@
     "twitter-api-v2": "^1.12.2",
     "webpack": "^5.73.0"
   },
+    "devDependencies": {
+  }
 }
