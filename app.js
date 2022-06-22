@@ -27,6 +27,7 @@ async function getURL() {
     let url = data.data[0].url;
     https.get(url, (res) => {
         const path = `${__dirname}/images/img.jpeg`;
+        console.log(path);
         const filePath = fs.createWriteStream(path);
         res.pipe(filePath);
         filePath.on('finish', () => {
@@ -35,12 +36,12 @@ async function getURL() {
         })
     })
 
-    const mediaId = await client.v1.uploadMedia('./images/img.jpeg');
-    const newTweet = await client.v2.tweet({"text": '', "media": {"media_ids": [mediaId]}});
-    console.log(newTweet)
+//     const mediaId = await client.v1.uploadMedia('./images/img.jpeg');
+//     const newTweet = await client.v2.tweet({"text": '', "media": {"media_ids": [mediaId]}});
+//     console.log(newTweet)
     }
 
 
-// setInterval(getURL, 300000)
-getURL()
+setInterval(getURL, 10000)
+// getURL()
 
