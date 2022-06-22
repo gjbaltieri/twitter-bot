@@ -4,6 +4,13 @@ const https = require('https');
 const axios = require('axios');
 const twApiModule = require('twitter-api-v2')
 const TwitterApi = twApiModule.default;
+const express = require('express')
+const app = express()
+
+app.listen(process.env.PORT || 8000);
+app.get('/', (req, res)=> {
+    res.send('rodando')
+})
 
 const client = new TwitterApi({
     appKey: process.env.TWITTER_API_KEY,
@@ -11,6 +18,7 @@ const client = new TwitterApi({
     accessToken: process.env.TWITTER_ACESS_TOKEN,
     accessSecret: process.env.TWITTER_ACESS_TOKEN_SECRET,
 });
+console.log('ok')
 
 async function getURL() {
     let urlAPI = process.env.API_URL
@@ -31,4 +39,6 @@ async function getURL() {
     const newTweet = await client.v2.tweet({"text": '', "media": {"media_ids": [mediaId]}});
     }
 
+
 setInterval(getURL, 300000)
+

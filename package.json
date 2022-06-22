@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "vercel": "node app.js",
+    "start": "node ./app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,10 +13,12 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
-    "twitter-api-v2": "^1.12.2",
-    "webpack": "^5.73.0"
+    "express": "^4.18.1",
+    "heroku": "^7.60.2",
+    "twitter-api-v2": "^1.12.2"
   },
-    "devDependencies": {
-    "webpack-cli": "^4.10.0"
+  "engines": {
+    "node": "v16.15.0",
+    "npm": "8.8.0"
   }
 }
