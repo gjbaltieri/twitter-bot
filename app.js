@@ -35,11 +35,10 @@ async function getURL() {
             console.log('Download Completed');
         })
     })
-setInterval(
-    const mediaId = await client.v1.uploadMedia(`${__dirname}/images/img.jpeg`);
+setInterval( function postTweet () {const mediaId = await client.v1.uploadMedia(`${__dirname}/images/img.jpeg`);
     const newTweet = await client.v2.tweet({"text": '', "media": {"media_ids": [mediaId]}});
     console.log(newTweet)
-    }, 2000
+    }, 2000}
 )
 
 // setInterval(getURL, 10000)
