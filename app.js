@@ -4,13 +4,6 @@ const https = require('https');
 const axios = require('axios');
 const twApiModule = require('twitter-api-v2')
 const TwitterApi = twApiModule.default;
-const express = require('express')
-const app = express()
-
-app.listen(process.env.PORT || 8000);
-app.get('/', (req, res) => {
-    res.send('rodando')
-})
 
 const client = new TwitterApi({
     appKey: process.env.TWITTER_API_KEY,
@@ -43,6 +36,7 @@ async function postTweet(PathFile) {
     const newTweet = await client.v2.tweet({ "text": '', "media": { "media_ids": [mediaId] } });
     console.log(newTweet)
 }
-setInterval(getURL, 60000*60)
+// setInterval(getURL, 60000*60)
+getURL()
 
 
