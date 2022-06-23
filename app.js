@@ -10,7 +10,7 @@ const app = express();
 app.listen(process.env.PORT || 8000);
 app.get('/', (req, res) => {
     res.send('rodando...........')
-}
+})
 
 var filePath
 console.log('rodando.......')
