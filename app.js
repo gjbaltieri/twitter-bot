@@ -6,6 +6,7 @@ const Downloader = require("nodejs-file-downloader");
 const fs = require('fs');
 
 var filePath
+console.log('rodando.......')
 
 const client = new TwitterApi({
     appKey: process.env.TWITTER_API_KEY,
