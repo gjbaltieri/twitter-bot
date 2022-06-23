@@ -53,4 +53,5 @@ async function postTweet(fileName) {
     });
 }
 
+getURL()
 setInterval(getURL, 3600000)
