@@ -1,9 +1,11 @@
 require('dotenv').config()
-const fs = require('fs');
-const https = require('https');
 const axios = require('axios');
 const twApiModule = require('twitter-api-v2')
 const TwitterApi = twApiModule.default;
+const Downloader = require("nodejs-file-downloader");
+const fs = require('fs');
+
+var filePath
 
 const client = new TwitterApi({
     appKey: process.env.TWITTER_API_KEY,
@@ -11,32 +13,44 @@ const client = new TwitterApi({
     accessToken: process.env.TWITTER_ACESS_TOKEN,
     accessSecret: process.env.TWITTER_ACESS_TOKEN_SECRET,
 });
-console.log('ok')
-
 async function getURL() {
     let urlAPI = process.env.API_URL
     let data = await axios.get(urlAPI)
     console.log(data.data[0].url)
     let url = data.data[0].url;
-    https.get(url, (res) => {
-        const path = `${__dirname}/images/img.jpeg`;
-        console.log(path)
-        const filePath = fs.createWriteStream(path);
-        res.pipe(filePath);
-        filePath.on('finish', () => {
-            filePath.close();
-            console.log('Download Completed');
-            postTweet(path)
-        })
+    downloadImage(url)
+}
+const downloadImage = async function (fileURL) {
+    const downloader = new Downloader({
+        url: fileURL,
+        directory: "./images/",
+        onBeforeSave: (fileName) => {
+            filePath = fileName
+            console.log(`The file name is: ${fileName}`)
+        }
     })
+    try {
+        await downloader.download();
+        postTweet(filePath)
+        console.log("All done");
+    } catch (error) {
+        console.log("Download failed", error);
+        return
+    }
 }
 
-async function postTweet(PathFile) {
-    const mediaId = await client.v1.uploadMedia(PathFile);
+
+async function postTweet(fileName) {
+    const mediaId = await client.v1.uploadMedia(`${__dirname}/images/${fileName}`);
     const newTweet = await client.v2.tweet({ "text": '', "media": { "media_ids": [mediaId] } });
     console.log(newTweet)
+    fs.unlink(`${__dirname}/images/${fileName}`, function(err) { 
+        if(err) {
+           console.log("unlink failed", err);
+        } else {
+           console.log("file deleted");
+        }
+    });
 }
+
 setInterval(getURL, 3600000)
-// getURL()
-
-
