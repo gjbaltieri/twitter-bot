@@ -4,6 +4,13 @@ const twApiModule = require('twitter-api-v2')
 const TwitterApi = twApiModule.default;
 const Downloader = require("nodejs-file-downloader");
 const fs = require('fs');
+const express = require('express');
+const app = express();
+
+app.listen(process.env.PORT || 8000);
+app.user('/', (req, res) => {
+    res.send('rodando...........')
+}
 
 var filePath
 console.log('rodando.......')
