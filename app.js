@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 
 app.listen(process.env.PORT || 8000);
-app.user('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('rodando...........')
 }
 
